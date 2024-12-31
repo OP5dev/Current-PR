@@ -1,0 +1,51 @@
+---
+name: Get Current PR Data
+author: Rishav Dhar (@rdhar)
+description: Get current PR data from any event trigger.
+
+runs:
+  using: composite
+
+  steps:
+    - shell: bash
+      run: |
+        # Populate environment variables.
+        echo GH_API="X-GitHub-Api-Version:2022-11-28" >> "$GITHUB_ENV"
+        echo GH_TOKEN="${{ inputs.token }}" >> "$GITHUB_ENV"
+
+    - id: data
+      shell: bash
+      run: |
+        # Get PR number using GitHub API for different event triggers.
+        if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+          # List PRs associated with the commit, then get the PR number from the head ref or the latest PR.
+          associated_prs=$(gh api /repos/{owner}/{repo}/commits/${GITHUB_SHA}/pulls --header "$GH_API" --method GET --field per_page=100)
+          number=$(echo "$associated_prs" | jq --raw-output '(.[] | select(.head.ref == env.GITHUB_REF_NAME) | .number) // .[0].number // 0')
+        elif [[ "$GITHUB_EVENT_NAME" == "merge_group" ]]; then
+          # Get the PR number by parsing the ref name.
+          number=$(echo "${GITHUB_REF_NAME}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
+        else
+          # Get the PR number from the event payload or fallback on 0.
+          number=${{ github.event.number || github.event.issue.number || 0 }}
+        fi
+        echo "number=$number" >> "$GITHUB_OUTPUT"
+
+outputs:
+  # body:
+  #   description: "The body of the current PR."
+  #   value: ${{ steps.data.outputs.body }}
+  # branch:
+  #   description: "The branch of the current PR."
+  #   value: ${{ steps.data.outputs.branch }}
+  number:
+    description: "The number of the current PR."
+    value: ${{ steps.data.outputs.number }}
+  # title:
+  #   description: "The title of the current PR."
+  #   value: ${{ steps.data.outputs.title }}
+
+inputs:
+  token:
+    default: ${{ github.token }}
+    description: "Specify a GitHub token (e.g., `secrets.GITHUB_TOKEN`)."
+    required: false
