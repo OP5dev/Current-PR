@@ -6,7 +6,8 @@ Integrating security in your CI/CD pipeline is critical to practicing DevSecOps.
 
 | Version | Supported |
 | :-----: | :-------: |
-| ≤ v0.X  |    Yes    |
+|  v1.X   |    Yes    |
+|  ≤v0.X  |    No     |
 
 ## Reporting a Vulnerability
 
