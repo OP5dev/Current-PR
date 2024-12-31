@@ -3,43 +3,70 @@
 *
 [![GitHub repository stargazers](https://img.shields.io/github/stars/op5dev/current-pr)](https://github.com/op5dev/current-pr "Become a stargazer.")
 
-# Heading
+# Get Current PR Data
 
-Placeholder.
+Supported event triggers:
 
-<table>
-  <tr>
-    <th>
-      <h3>What does it do?</h3>
-    </th>
-    <th>
-      <h3>Who is it for?</h3>
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <ul>
-        <li>Placeholder.</li>
-        <li>Placeholder.</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>Placeholder.</li>
-        <li>Placeholder.</li>
-      </ul>
-    </td>
-  </tr>
-</table>
+- `issue_comment`
+- `merge_group`
+- `push`
+- `pull_request` (of course!)
+
 </br>
 
-### View: [Usage Examples](#usage-examples)  · [Security](#security) · [Changelog](#changelog) · [License](#license)
+### View: [Usage Examples](#usage-examples) · [In/Output Parameters](#parameters) · [Security](#security) · [Changelog](#changelog) · [License](#license)
+
+</br>
 
 ## Usage Examples
+
+```yaml
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read      # Required to checkout repository.
+      pull-requests: read # Required to get PR data.
+
+    steps:
+      - uses: actions/checkout@v4
+      - id: pr
+        uses: op5dev/current-pr@v1
+      - run: echo "PR number is ${{ steps.pr.outputs.number }}"
+```
+
+</br>
+
+## Parameters
+
+### Inputs
+
+| Required | Name    | Description                                                 |
+| -------- | ------- | ----------------------------------------------------------- |
+| No       | `token` | Specify a GitHub token.</br>Default: `${{ github.token }}`. |
+
+</br>
+
+### Outputs
+
+| Name         | Description                       |
+| ------------ | --------------------------------- |
+| ~~`body`~~   | ~~The body of the current PR.~~   |
+| ~~`branch`~~ | ~~The branch of the current PR.~~ |
+| `number`     | The number of the current PR.     |
+| ~~`title`~~  | ~~The title of the current PR.~~  |
+
+</br>
 
 ## Security
 
 View [security policy and reporting instructions](SECURITY.md).
+
 </br>
 
 ## Changelog
@@ -54,6 +81,14 @@ View [all notable changes](https://github.com/op5dev/current-pr/releases "Releas
 > - [Raise an issue](https://github.com/op5dev/current-pr/issues "Raise an issue.") to propose changes or report unexpected behavior.
 > - [Open a discussion](https://github.com/op5dev/current-pr/discussions "Open a discussion.") to discuss broader topics or questions.
 > - [Become a stargazer](https://github.com/op5dev/current-pr/stargazers "Become a stargazer.") if you find this project useful.
+
+</br>
+
+### To-Do
+
+- Output parameters like `body`, `branch`, and `title` will be added in upcoming releases.
+- Workflow event triggers like `workflow_dispatch`, and `workflow_run` (fork) will be added in upcoming releases.
+
 </br>
 
 ## License
