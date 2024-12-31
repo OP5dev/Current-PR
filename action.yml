@@ -49,3 +49,7 @@ inputs:
     default: ${{ github.token }}
     description: "Specify a GitHub token (e.g., `secrets.GITHUB_TOKEN`)."
     required: false
+
+branding:
+  color: gray-dark
+  icon: git-pull-request
