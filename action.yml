@@ -31,18 +31,12 @@ runs:
         echo "number=$number" >> "$GITHUB_OUTPUT"
 
 outputs:
-  # body:
-  #   description: "The body of the current PR."
-  #   value: ${{ steps.data.outputs.body }}
-  # branch:
-  #   description: "The branch of the current PR."
-  #   value: ${{ steps.data.outputs.branch }}
+  branch:
+    description: "Current PR branch."
+    value: ${{ steps.data.outputs.branch }}
   number:
-    description: "The number of the current PR."
+    description: "Current PR number."
     value: ${{ steps.data.outputs.number }}
-  # title:
-  #   description: "The title of the current PR."
-  #   value: ${{ steps.data.outputs.title }}
 
 inputs:
   token:

@@ -35,7 +35,9 @@ jobs:
     steps:
       - id: pr
         uses: op5dev/current-pr@v1
-      - run: echo "PR number is ${{ steps.pr.outputs.number }}"
+      - run: |
+          echo "PR number ${{ steps.pr.outputs.number }}"
+          echo "PR branch ${{ steps.pr.outputs.branch }}"
 ```
 
 </br>
@@ -44,9 +46,9 @@ jobs:
 
 ### Inputs
 
-| Required | Name    | Description                                                 |
-| -------- | ------- | ----------------------------------------------------------- |
-| No       | `token` | Specify a GitHub token.</br>Default: `${{ github.token }}`. |
+| Name    | Description                                                                |
+| ------- | -------------------------------------------------------------------------- |
+| `token` | Specify a GitHub token (not required).</br>Default: `${{ github.token }}`. |
 
 </br>
 
