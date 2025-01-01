@@ -1,0 +1,40 @@
+---
+name: Tests
+
+on:
+  issue_comment:
+  merge_group:
+  pull_request_review_comment:
+  pull_request_review:
+  pull_request_target:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Echo context
+        env:
+          GH_JSON: ${{ toJson(github) }}
+        run: echo "$GH_JSON"
+
+      - name: Checkout action
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: action.yml
+
+      - name: PR data
+        id: pr-data
+        uses: ./
+
+      - name: Echo data
+        run: echo Number "${{ steps.pr-data.outputs.number }}" from "${{ github.event_name }} event."
