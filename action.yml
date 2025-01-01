@@ -30,6 +30,7 @@ runs:
           branch=${{ github.head_ref || "" }}
         fi
         echo "number=$number" >> "$GITHUB_OUTPUT"
+        echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
 outputs:
   branch:
