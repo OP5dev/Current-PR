@@ -33,4 +33,4 @@ jobs:
         uses: ./
 
       - name: Echo data
-        run: echo number "${{ steps.pr-data.outputs.number }}" from "{{ github.event_name }} event trigger."
+        run: echo number "${{ steps.pr-data.outputs.number }}" from "${{ github.event_name }} event trigger."
