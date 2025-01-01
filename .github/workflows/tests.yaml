@@ -11,10 +11,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     permissions:
-      actions: read
-      checks: write
       contents: read
-      pull-requests: write
+      # pull-requests: write
 
     steps:
       - name: Echo context
@@ -33,4 +31,4 @@ jobs:
         uses: ./
 
       - name: Echo data
-        run: echo number "${{ steps.pr-data.outputs.number }}" from "${{ github.event_name }} event trigger."
+        run: echo Number "${{ steps.pr-data.outputs.number }}" from "${{ github.event_name }} event."
