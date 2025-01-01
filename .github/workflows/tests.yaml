@@ -11,20 +11,22 @@ on:
   push:
   workflow_dispatch:
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   tests:
     runs-on: ubuntu-24.04
 
-    permissions:
-      contents: read
-
     steps:
       - name: Echo context
         env:
           GH_JSON: ${{ toJson(github) }}
-        run: echo "$GH_JSON"
+        run: |
+          echo "GITHUB_SHA $GITHUB_SHA"
+          echo "GITHUB_REF $GITHUB_REF"
+          echo "GITHUB_REF_NAME $GITHUB_REF_NAME"
+          echo "$GH_JSON"
 
       - name: Checkout action
         uses: actions/checkout@v4
