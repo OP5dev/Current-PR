@@ -28,6 +28,7 @@ runs:
           # Fallback on 0 if the PR number is not found.
           number=${{ github.event.number || github.event.issue.number || 0 }}
         fi
+        # Fallback on empty string if the branch is not found.
         branch=${{ github.ref_name || github.head_ref || github.ref || '' }}
         echo "branch=$branch" >> "$GITHUB_OUTPUT"
         echo "number=$number" >> "$GITHUB_OUTPUT"

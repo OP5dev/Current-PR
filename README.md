@@ -22,8 +22,9 @@ Supported event triggers:
 
 ```yaml
 on:
+  issue_comment:
+  merge_group:
   push:
-    branches: [main]
 
 jobs:
   test:
