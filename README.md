@@ -30,14 +30,14 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read      # Required to checkout repository.
       pull-requests: read # Required to get PR data.
 
     steps:
-      - uses: actions/checkout@v4
       - id: pr
         uses: op5dev/current-pr@v1
-      - run: echo "PR number is ${{ steps.pr.outputs.number }}"
+      - run: |
+          echo "PR number ${{ steps.pr.outputs.number }}"
+          echo "PR branch ${{ steps.pr.outputs.branch }}"
 ```
 
 </br>
@@ -46,20 +46,18 @@ jobs:
 
 ### Inputs
 
-| Required | Name    | Description                                                 |
-| -------- | ------- | ----------------------------------------------------------- |
-| No       | `token` | Specify a GitHub token.</br>Default: `${{ github.token }}`. |
+| Name    | Description                                                                |
+| ------- | -------------------------------------------------------------------------- |
+| `token` | Specify a GitHub token (not required).</br>Default: `${{ github.token }}`. |
 
 </br>
 
 ### Outputs
 
-| Name         | Description                       |
-| ------------ | --------------------------------- |
-| ~~`body`~~   | ~~The body of the current PR.~~   |
-| ~~`branch`~~ | ~~The branch of the current PR.~~ |
-| `number`     | The number of the current PR.     |
-| ~~`title`~~  | ~~The title of the current PR.~~  |
+| Name     | Description        |
+| -------- | ------------------ |
+| `branch` | Current PR branch. |
+| `number` | Current PR number. |
 
 </br>
 
@@ -86,7 +84,6 @@ View [all notable changes](https://github.com/op5dev/current-pr/releases "Releas
 
 ### To-Do
 
-- Output parameters like `body`, `branch`, and `title` will be added in upcoming releases.
 - Workflow event triggers like `workflow_dispatch`, and `workflow_run` (fork) will be added in upcoming releases.
 
 </br>
