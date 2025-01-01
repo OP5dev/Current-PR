@@ -22,7 +22,7 @@ jobs:
           GH_JSON: ${{ toJson(github) }}
         run: echo "$GH_JSON"
 
-      - name: Checkout repository
+      - name: Checkout action
         uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -33,4 +33,4 @@ jobs:
         uses: ./
 
       - name: Echo data
-        run: echo number "${{ steps.pr-data.outputs.number }}"
+        run: echo number "${{ steps.pr-data.outputs.number }}" from "{{ github.event_name }} event trigger."
