@@ -27,6 +27,7 @@ runs:
         else
           # Get the PR number from the event payload or fallback on 0.
           number=${{ github.event.number || github.event.issue.number || 0 }}
+          branch=${{ github.head_ref || "" }}
         fi
         echo "number=$number" >> "$GITHUB_OUTPUT"
 

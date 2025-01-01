@@ -36,4 +36,6 @@ jobs:
         uses: ./
 
       - name: Echo data
-        run: echo Number "${{ steps.pr.outputs.number }}" from "${{ github.event_name }} event."
+        run: |
+          echo Number "${{ steps.pr.outputs.number }}" from "${{ github.event_name }} event."
+          echo Branch "${{ steps.pr.outputs.branch }}" from "${{ github.event_name }} event."
