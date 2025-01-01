@@ -1,0 +1,30 @@
+---
+name: Tests
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Echo context
+        env:
+          GH_JSON: ${{ toJson(github) }}
+        run: echo "$GH_JSON"
+
+      - name: PR data
+        id: pr-data
+        uses: ./
+
+      - name: Echo data
+        run: echo number "${{ steps.pr-data.outputs.number }}"
