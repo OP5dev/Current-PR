@@ -7,9 +7,9 @@
 
 Supported event triggers:
 
-- `issue_comment`
-- `merge_group`
 - `push`
+- `merge_group`
+- `issue_comment`
 - `workflow_dispatch`
 - `pull_request` (of course!)
 
@@ -23,9 +23,10 @@ Supported event triggers:
 
 ```yaml
 on:
-  issue_comment:
-  merge_group:
   push:
+  merge_group:
+  issue_comment:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -81,12 +82,6 @@ View [all notable changes](https://github.com/op5dev/current-pr/releases "Releas
 > - [Raise an issue](https://github.com/op5dev/current-pr/issues "Raise an issue.") to propose changes or report unexpected behavior.
 > - [Open a discussion](https://github.com/op5dev/current-pr/discussions "Open a discussion.") to discuss broader topics or questions.
 > - [Become a stargazer](https://github.com/op5dev/current-pr/stargazers "Become a stargazer.") if you find this project useful.
-
-</br>
-
-### To-Do
-
-- Workflow event triggers like `workflow_dispatch`, and `workflow_run` (fork) will be added in upcoming releases.
 
 </br>
 
