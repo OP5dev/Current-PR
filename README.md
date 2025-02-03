@@ -10,6 +10,7 @@ Supported event triggers:
 - `issue_comment`
 - `merge_group`
 - `push`
+- `workflow_dispatch`
 - `pull_request` (of course!)
 
 </br>
