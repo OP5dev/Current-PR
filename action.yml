@@ -1,7 +1,7 @@
 ---
 name: Get Current PR Data
 author: Rishav Dhar (@rdhar)
-description: Get current PR data from any event trigger, including: issue_comment, merge_group, and push.
+description: "Get current PR data from any event trigger, including: issue_comment, merge_group, push, and workflow_dispatch."
 
 runs:
   using: composite
