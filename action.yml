@@ -12,6 +12,7 @@ runs:
         # Populate environment variables.
         echo GH_API="X-GitHub-Api-Version:2022-11-28" >> "$GITHUB_ENV"
         echo GH_TOKEN="${{ inputs.token }}" >> "$GITHUB_ENV"
+        if [[ "$GITHUB_SERVER_URL" != "https://github.com" ]]; then echo GH_HOST=$(echo "$GITHUB_SERVER_URL" | sed 's/.*:\/\///') >> "$GITHUB_ENV"; fi
 
     - id: data
       shell: bash
