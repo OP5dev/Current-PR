@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: |
         # Fallback on empty string if the branch is not found.
-        branch=${{ github.ref_name || github.head_ref || github.ref || '' }}
+        branch=${{ github.ref_name || github.head_ref || github.ref || '0' }}
 
         # Get PR number using GitHub API for different event triggers.
         if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
@@ -30,7 +30,7 @@ runs:
           number=$(echo "${GITHUB_REF_NAME}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
         else
           # Get the PR number from branch name, otherwise fallback on 0 if the PR number is not found.
-          number=$(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${branch}" | jq .[0].number) || ${{ github.event.number || github.event.issue.number || 0 }}
+          number=${{ github.event.number || github.event.issue.number }} || $(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${branch}" | jq '.[0].number // 0')
         fi
 
         echo "branch=$branch" >> "$GITHUB_OUTPUT"
